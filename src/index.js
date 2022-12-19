@@ -3,7 +3,7 @@ import { chdir, argv, stdout, stdin, nextTick, exit } from 'process';
 import * as readline from 'readline';
 import { errorMessages } from './constants/index.js';
 import { default as showCurrentDirectory } from './helpers/showCurrentDirectory.js';
-import { goUp, changeDirectory, listContent } from './handlers/index.js';
+import { goUp, changeDirectory, listContent, getOsInfo } from './handlers/index.js';
 
 try {
   if (!argv.slice(2).length) {
@@ -37,7 +37,7 @@ try {
           goUp();
           break;
         case 'cd':
-          if (!arg1) {
+          if (!arg1 || arg2) {
             throw new Error(errorMessages.invalidInput);
           };
           changeDirectory(arg1);
@@ -47,6 +47,12 @@ try {
             throw new Error(errorMessages.invalidInput);
           }
           await listContent();
+          break;
+        case 'os':
+          if (!arg1 || arg2) {
+            throw new Error(errorMessages.invalidInput);
+          };
+          await getOsInfo(arg1);
           break;
         default:
           throw new Error(errorMessages.invalidInput);
