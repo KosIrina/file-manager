@@ -1,0 +1,23 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KosIrina/file-manager.git"
+  },
+  "keywords": [
+    "NodeJS"
+  ],
+  "author": "KosIrina",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KosIrina/file-manager/issues"
+  },
+  "homepage": "https://github.com/KosIrina/file-manager#readme"
+}
