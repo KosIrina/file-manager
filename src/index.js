@@ -3,7 +3,7 @@ import { chdir, argv, stdout, stdin, nextTick, exit } from 'process';
 import * as readline from 'readline';
 import { errorMessages } from './constants/index.js';
 import { default as showCurrentDirectory } from './helpers/showCurrentDirectory.js';
-import { goUp, changeDirectory, listContent, getOsInfo, calculateHash } from './handlers/index.js';
+import { goUp, changeDirectory, listContent, getOsInfo, calculateHash, useBrotliCompression } from './handlers/index.js';
 
 try {
   if (!argv.slice(2).length) {
@@ -59,6 +59,18 @@ try {
             throw new Error(errorMessages.invalidInput);
           };
           await calculateHash(arg1);
+          break;
+        case 'compress':
+          if (!arg1 || !arg2) {
+            throw new Error(errorMessages.invalidInput);
+          };
+          await useBrotliCompression(arg1, arg2, 'compress');
+          break;
+        case 'decompress':
+          if (!arg1 || !arg2) {
+            throw new Error(errorMessages.invalidInput);
+          };
+          await useBrotliCompression(arg1, arg2, 'decompress');
           break;
         default:
           throw new Error(errorMessages.invalidInput);
