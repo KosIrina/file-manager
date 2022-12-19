@@ -3,7 +3,7 @@ import { chdir, argv, stdout, stdin, nextTick, exit } from 'process';
 import * as readline from 'readline';
 import { errorMessages } from './constants/index.js';
 import { default as showCurrentDirectory } from './helpers/showCurrentDirectory.js';
-import { goUp, changeDirectory, listContent, getOsInfo, calculateHash, useBrotliCompression, readFile } from './handlers/index.js';
+import { goUp, changeDirectory, listContent, getOsInfo, calculateHash, useBrotliCompression, readFile, createEmptyFile } from './handlers/index.js';
 
 try {
   if (!argv.slice(2).length) {
@@ -77,6 +77,12 @@ try {
             throw new Error(errorMessages.invalidInput);
           };
           await readFile(arg1);
+          break;
+        case 'add':
+          if (!arg1 || arg2) {
+            throw new Error(errorMessages.invalidInput);
+          };
+          await createEmptyFile(arg1);
           break;
         default:
           throw new Error(errorMessages.invalidInput);
