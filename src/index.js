@@ -3,7 +3,7 @@ import { chdir, argv, stdout, stdin, nextTick, exit } from 'process';
 import * as readline from 'readline';
 import { errorMessages } from './constants/index.js';
 import { default as showCurrentDirectory } from './helpers/showCurrentDirectory.js';
-import { goUp, changeDirectory, listContent, getOsInfo } from './handlers/index.js';
+import { goUp, changeDirectory, listContent, getOsInfo, calculateHash } from './handlers/index.js';
 
 try {
   if (!argv.slice(2).length) {
@@ -53,6 +53,12 @@ try {
             throw new Error(errorMessages.invalidInput);
           };
           await getOsInfo(arg1);
+          break;
+        case 'hash':
+          if (!arg1 || arg2) {
+            throw new Error(errorMessages.invalidInput);
+          };
+          await calculateHash(arg1);
           break;
         default:
           throw new Error(errorMessages.invalidInput);
