@@ -3,7 +3,7 @@ import { chdir, argv, stdout, stdin, nextTick, exit } from 'process';
 import * as readline from 'readline';
 import { errorMessages } from './constants/index.js';
 import { default as showCurrentDirectory } from './helpers/showCurrentDirectory.js';
-import { goUp, changeDirectory } from './handlers/index.js';
+import { goUp, changeDirectory, listContent } from './handlers/index.js';
 
 try {
   if (!argv.slice(2).length) {
@@ -20,14 +20,20 @@ try {
 
   const rl = readline.createInterface({input: stdin, output: stdout}); 
 
-  rl.on('line', input => {
+  rl.on('line', async (input) => {
     const [command, arg1, arg2] = input.split(' ');
     try {
       switch (command) {
         case '.exit':
+          if (arg1) {
+            throw new Error(errorMessages.invalidInput);
+          }
           rl.close();
           return;
         case 'up':
+          if (arg1) {
+            throw new Error(errorMessages.invalidInput);
+          }
           goUp();
           break;
         case 'cd':
@@ -35,6 +41,12 @@ try {
             throw new Error(errorMessages.invalidInput);
           };
           changeDirectory(arg1);
+          break;
+        case 'ls':
+          if (arg1) {
+            throw new Error(errorMessages.invalidInput);
+          }
+          await listContent();
           break;
         default:
           throw new Error(errorMessages.invalidInput);
