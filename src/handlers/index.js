@@ -8,3 +8,4 @@ export { default as readFile } from './readFile.js';
 export { default as createEmptyFile } from './createEmptyFile.js';
 export { default as copyFile } from './copyFile.js';
 export { default as deleteFile } from './deleteFile.js';
+export { default as renameFile } from './renameFile.js';
